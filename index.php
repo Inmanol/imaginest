@@ -12,8 +12,9 @@
 	//require_once('./lib/controlUsuaris.php');
     if($_SERVER["REQUEST_METHOD"] == "POST"){
 		$usermail = filter_input(INPUT_POST,'usermail');
-        $usu = checkUserLogin($usermail);
-        if($usu){
+        $sql = "SELECT mail, username, passHash FROM users WHERE username = '$usermail' or email = '$usermail'";
+        $exis = $db->query($sql);
+        if($exis){
 
             $_SESSION['usuari'] = $usuaris['username'];
 
@@ -24,6 +25,9 @@
 
             if($preparadaUpdate)
             {
+				$_SESSION['usuari'] = $user;
+                    setcookie("username", $user['username'], time()+3600*24*7);
+                    setcookie("email", $user['email'], time()+3600*24*7);
                 header("Location: home.php");
                 exit;
             }   
