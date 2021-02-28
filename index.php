@@ -25,9 +25,6 @@
 
             if($preparadaUpdate)
             {
-				$_SESSION['usuari'] = $user;
-                    setcookie("username", $user['username'], time()+3600*24*7);
-                    setcookie("email", $user['email'], time()+3600*24*7);
                 header("Location: home.php");
                 exit;
             }   
